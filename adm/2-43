@@ -1,7 +1,21 @@
 Q:
 
-You are given a set S of n numbers. You must pick a subset S' of k numbers form S such that the probability of each element of S occurring in S' is equal (i.e., each is selected with probability k/n). You may make only one pass over the numbers. What if n is unknown?
+You are given a set S of n numbers. You must pick a subset S' of k numbers from S such that the probability of each element of S occurring in S' is equal (i.e., each is selected with probability k/n). You may make only one pass over the numbers. What if n is unknown?
 
 A:
 
-...
+Hmm... solve this recursively?
+
+For one item, pick it with probability p = 1.
+
+For two items, pick the first item with probability p = 1. Then pick the next item with p = 0.5.
+
+For three items, pick the first item with probability p = 1, the second with p = 0.5, and the third with p = 0.33... lemme read the textbook...
+
+OKAY: this is how it works.
+
+You are given a set S of n numbers. See the set as a stream, where i is your current index in the stream, starting at 1. For each item in S, pick it with probability k/i to add to S'. If you pick the item at i and S' has k elements, then remove an element from S' with probability 1/k before you add the item to S'.
+
+To see how this works, look at k = 1, and n is an arbitrary number. When index i is 1, you pick the first element with probability 1/1, or 1. Which is to say that you always pick it. If n is 1, then you always end up with a set consisting of the first number. Otherwise, move to i = 2. Pick the second number with probability 1/2. Now, you have a 0.5 probability that you had either the first or second number. Let's say that n >= 3, so pick the third number with probability 1/3. This means that we stayed with our last choice with a probability of 2/3, which we multiply by 1/2 to get the probability for each of the items, and you can see that each of the items has a 1/3 probability of being in the set S'.
+
+This is easily extended to k > 1.
